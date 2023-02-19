@@ -1,9 +1,12 @@
 import { getCityAll } from "@/services";
 import { defineStore } from "pinia";
 
-export const useCityStore = defineStore("city", {
+const useCityStore = defineStore("city", {
   state: () => ({
-    allCities: []
+    allCities: {},
+    currentCity: {
+      cityName: "深圳"
+    }
   }),
   actions: {
     async fetchAllCitiesData() {
@@ -13,4 +16,5 @@ export const useCityStore = defineStore("city", {
   }
 })
 
+// 导出的是函数，所以引入的时候不能使用对象进行解构
 export default useCityStore
