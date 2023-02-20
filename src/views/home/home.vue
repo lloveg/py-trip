@@ -6,20 +6,27 @@
     </div>
     <home-search-box :hot-suggests="hotSuggests" />
     <home-categories />
+
+    <div v-if="isShowSearchBar">碧桃电视动画</div>
+
     <home-content />
 
-    <button @click="btnClick">按钮</button>
+    <!-- <button @click="btnClick">按钮</button> -->
   </div>
 </template>
 
 <script setup>
+import { watch } from "vue";
+import { computed } from "@vue/reactivity";
 import { storeToRefs } from "pinia";
-import useHomeStore from "@/stores/modules/home"
+import useHomeStore from "@/stores/modules/home";
 
 import HomeNavBar from "@/views/home/components/home-nav-bar.vue";
 import HomeSearchBox from "@/views/home/components/home-search-box.vue";
 import HomeCategories from "@/views/home/components/home-categories.vue";
 import HomeContent from "@/views/home/components/home-content.vue";
+
+import useScroll from "@/hook/useScroll";
 
 // 发送网络请求
 const homeStore = useHomeStore();
@@ -29,12 +36,34 @@ homeStore.fetchHouselistData();
 // 1.热门建议
 const { hotSuggests } = storeToRefs(homeStore);
 
-const btnClick = () => {
-  homeStore.fetchHouselistData();
-}
+// const btnClick = () => {
+//   homeStore.fetchHouselistData();
+// };
+
+// 监听window窗口的滚动
+// 1.当我们离开页面时, 我们移除监听
+// 2.如果别的页面也进行类似的监听, 会编写重复代码
+const { isReachBootom, scrollTop } = useScroll();
+watch(isReachBootom, (newValue) => {
+  if (newValue) {
+    homeStore.fetchHouselistData().then(() => {
+      isReachBootom.value = false;
+    });
+  }
+});
+
+// 搜索框显示的控制
+// 定义的可响应式数据, 依赖另外一个可响应式的数据, 那么可以使用计算函数(computed)
+const isShowSearchBar = computed(() => {
+  return scrollTop.value >= 350
+})
 </script>
 
 <style lang="less" scoped>
+.home {
+  padding-bottom: 60px;
+}
+
 .banner {
   img {
     width: 100%;
