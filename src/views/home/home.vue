@@ -7,7 +7,9 @@
     <home-search-box :hot-suggests="hotSuggests" />
     <home-categories />
 
-    <div v-if="isShowSearchBar">碧桃电视动画</div>
+    <div class="search-bar" v-if="isShowSearchBar">
+      <search-bar />
+    </div>
 
     <home-content />
 
@@ -25,6 +27,7 @@ import HomeNavBar from "@/views/home/components/home-nav-bar.vue";
 import HomeSearchBox from "@/views/home/components/home-search-box.vue";
 import HomeCategories from "@/views/home/components/home-categories.vue";
 import HomeContent from "@/views/home/components/home-content.vue";
+import SearchBar from "@/components/search-bar/search-bar.vue";
 
 import useScroll from "@/hook/useScroll";
 
@@ -55,13 +58,24 @@ watch(isReachBootom, (newValue) => {
 // 搜索框显示的控制
 // 定义的可响应式数据, 依赖另外一个可响应式的数据, 那么可以使用计算函数(computed)
 const isShowSearchBar = computed(() => {
-  return scrollTop.value >= 350
-})
+  return scrollTop.value >= 350;
+});
 </script>
 
 <style lang="less" scoped>
 .home {
   padding-bottom: 60px;
+
+  .search-bar {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    padding: 16px 16px 10px;
+    background-color: #fff;
+  }
 }
 
 .banner {
