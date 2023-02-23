@@ -75,6 +75,7 @@ const isShowSearchBar = computed(() => {
     height: 45px;
     padding: 16px 16px 10px;
     background-color: #fff;
+    border-bottom: 1px solid #eee;
   }
 }
 
