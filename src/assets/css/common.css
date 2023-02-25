@@ -36,3 +36,17 @@ body {
   height: 12px;
   background: url(@/assets/img/detail/icon_check.png) 0 0 / 100% 100%;
 }
+
+.icon_chat {
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  background: url(@/assets/img/detail/icon_chat.png) 0 0 / 100% 100%;
+}
+
+.icon_order {
+  display: inline-block;
+  width: 14px;
+  height: 17px;
+  background: url(@/assets/img/detail/icon_order.png) 0 0 / 100% 100%;
+}

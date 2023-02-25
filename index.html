@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <!-- 百度地图API -->
+    <!-- <script
+      type="text/javascript"
+      src="http://api.map.baidu.com/getscript?v=3.0&&type=webgl&ak=mn2WYgr1oQ7b6g3LWWMg4G6F6Tv5N4Mj"
+    ></script> -->
+
+    <!-- 高德地图API -->
+    <script type="text/javascript">
+      window._AMapSecurityConfig = {
+        securityJsCode: "facdd65472c0ac27a835eb4698ec3032",
+      };
+    </script>
+    <script
+      type="text/javascript"
+      src="https://webapi.amap.com/maps?v=2.0&key=f225db674e4179414d0fee469de2d843"
+    ></script>
   </body>
 </html>
