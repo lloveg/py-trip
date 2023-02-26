@@ -17,6 +17,12 @@
   </div>
 </template>
 
+
+<script>
+export default {
+  name: "home"
+}
+</script>
 <script setup>
 import { watch } from "vue";
 import { computed } from "@vue/reactivity";

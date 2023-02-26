@@ -10,6 +10,7 @@ export default function useScroll(elRef) {
   const scrollTop = ref(0);
   const scrollHeight = ref(0);
 
+  // 防抖/节流(为什么使用节流:因为隐藏的东西要显示，不能使用防抖，否则隐藏的东西的显示时间就会无限延后)
   const scrollListenerHandler = throttle(() => {
     // console.log("正在滚动")
     if (el === window) {

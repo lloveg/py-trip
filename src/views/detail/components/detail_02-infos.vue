@@ -6,7 +6,10 @@
         <span
           class="item"
           v-if="item.tagText"
-          :style="{ color: item.tagText.color, background: item.tagText.background.color }"
+          :style="{
+            color: item.tagText.color,
+            background: item.tagText.background.color,
+          }"
         >
           {{ item.tagText.text }}
         </span>
@@ -63,7 +66,8 @@ defineProps({
     margin: 10px 0;
 
     .item {
-      margin: 0 2px;
+      display: inline-block;
+      margin: 2px;
       padding: 1px 3px;
       font-size: 12px;
     }
@@ -90,7 +94,7 @@ defineProps({
         font-weight: 700;
         color: #333;
       }
-      
+
       .title {
         margin: 0 3px;
         font-weight: 700;

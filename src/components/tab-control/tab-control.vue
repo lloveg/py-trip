@@ -1,7 +1,11 @@
 <template>
   <div class="tab-control">
     <template v-for="(item, index) in titles" :key="index">
-      <div class="tab-control-item" :class="{ active: currentIndex === index }" @click="itemClick(index)">
+      <div
+        class="tab-control-item"
+        :class="{ active: currentIndex === index }"
+        @click="itemClick(index)"
+      >
         <span>{{ item }}</span>
       </div>
     </template>
@@ -9,23 +13,31 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 defineProps({
   titles: {
     type: Array,
-    default: () => ({})
-  }
-})  
+    default: () => ({}),
+  },
+});
 
 const currentIndex = ref(0);
 // 这里emits需要是一个数组
-const emit = defineEmits(['tabItemClick']);
+const emit = defineEmits(["tabItemClick"]);
 const itemClick = (index) => {
   currentIndex.value = index;
-  emit("tabItemClick", index)
-} 
+  emit("tabItemClick", index);
+};
 
+function setCurrentIndex(index) {
+  currentIndex.value = index;
+}
+
+defineExpose({
+  currentIndex,
+  setCurrentIndex,
+});
 </script>
 
 <style lang="less" scoped>
