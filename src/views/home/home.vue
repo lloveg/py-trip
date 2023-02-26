@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="homeRef">
     <home-nav-bar />
     <div class="banner">
       <img src="@/assets/img/home/banner.webp" alt="" />
@@ -24,7 +24,7 @@ export default {
 }
 </script>
 <script setup>
-import { watch } from "vue";
+import { watch, ref, onActivated } from "vue";
 import { computed } from "@vue/reactivity";
 import { storeToRefs } from "pinia";
 import useHomeStore from "@/stores/modules/home";
@@ -52,7 +52,8 @@ const { hotSuggests } = storeToRefs(homeStore);
 // 监听window窗口的滚动
 // 1.当我们离开页面时, 我们移除监听
 // 2.如果别的页面也进行类似的监听, 会编写重复代码
-const { isReachBootom, scrollTop } = useScroll();
+const homeRef = ref();
+const { isReachBootom, scrollTop } = useScroll(homeRef);
 watch(isReachBootom, (newValue) => {
   if (newValue) {
     homeStore.fetchHouselistData().then(() => {
@@ -66,10 +67,20 @@ watch(isReachBootom, (newValue) => {
 const isShowSearchBar = computed(() => {
   return scrollTop.value >= 350;
 });
+
+// 跳转回home时，保留原来的位置
+onActivated(() => {
+  homeRef.value?.scrollTo({
+    top: scrollTop.value
+  })
+})
 </script>
 
 <style lang="less" scoped>
 .home {
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
   padding-bottom: 60px;
 
   .search-bar {
