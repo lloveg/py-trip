@@ -12,14 +12,18 @@ class KLRequest {
       timeout
     })
 
+    // 请求拦截
     this.instance.interceptors.request.use(config => {
+      // 开启loading
       mainStore.isLoading = true;
       return config
     }, err => {
       return err
     })
 
+    // 响应拦截
     this.instance.interceptors.response.use(res => {
+      // 关闭loading
       mainStore.isLoading = false;
       return res
     }, err => {
