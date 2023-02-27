@@ -1,7 +1,19 @@
 <template>
   <div class="price-counter">
     <div class="section price-content bottom-gray-line">
-      <div class="start">价格不限</div>
+      <div class="start">
+        <div class="text" @click="priceClick" :style="{ color: numColor }">
+          {{ price }}
+        </div>
+        <van-action-sheet
+          v-model:show="showPrice"
+          :actions="prices"
+          cancel-text="取消"
+          description="选择价格区间"
+          close-on-click-action
+          @select="onPriceSelect"
+        />
+      </div>
       <div class="end">
         <div class="text" @click="actionsClick" :style="{ color: numColor }">
           {{ num }}
@@ -22,6 +34,7 @@
 <script setup>
 import { ref, reactive } from "vue";
 
+// 人数
 const num = ref("人数不限");
 const numColor = ref("#999");
 
@@ -52,6 +65,36 @@ const onSelect = (item) => {
   }
   numColor.value = "#333";
   num.value = item.name;
+};
+
+
+// 价格
+const price = ref("价格不限");
+const showPrice = ref(false);
+const prices = reactive([
+  { name: "￥100以下" },
+  { name: "￥100-200" },
+  { name: "￥200-300" },
+  { name: "￥300-400" },
+  { name: "￥400-600" },
+  { name: "￥600-1000" },
+  { name: "￥1000-2000" },
+  { name: "￥2000以上" },
+  { name: "价格不限" },
+]);
+
+const priceClick = () => {
+  showPrice.value = true;
+};
+const onPriceSelect = (item) => {
+  // show.value = false;
+  if (item.name === "价格不限") {
+    console.log(item.name);
+    numColor.value = "#999";
+    return (price.value = "价格不限");
+  }
+  numColor.value = "#333";
+  price.value = item.name;
 };
 </script>
 

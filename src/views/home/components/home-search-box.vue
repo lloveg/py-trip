@@ -61,6 +61,8 @@
     <div class="section search-btn">
       <div class="btn" @click="searchBtnClick">开始搜索</div>
     </div>
+
+    <div class="desc">名宿预定服务由追梦旅途网提供</div>
   </div>
 </template>
 
@@ -158,6 +160,15 @@ const searchBtnClick = (item) => {
 <style lang="less" scoped>
 .search-box {
   --van-calendar-popup-height: 100%;
+  box-shadow: 0 1px 20px 2px rgba(49, 49, 49, 0.2);
+
+  .desc {
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+  }
 }
 
 .location {

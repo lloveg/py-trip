@@ -23,7 +23,7 @@ const { categories } = storeToRefs(homeStore)
   align-items: center;
   overflow-x: auto;
   height: 66px;
-  margin-top: 12px;
+  margin-top: 20px;
   padding: 0 10px;
 
   &::-webkit-scrollbar {
