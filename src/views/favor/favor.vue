@@ -13,8 +13,8 @@
       </template>
     </nav-bar>
     <!-- 我的收藏 -->
-    <div class="my-favor" v-if="active === 0">
-      <van-tabs v-model:active="activeName">
+    <div class="my-favor" v-show="active === 0">
+      <van-tabs v-model:active="activeName" title-active-color="#ff9854">
         <van-tab title="房屋" name="house">
           <div class="content">
             <template v-for="(item, index) in favorlist" :key="index">
@@ -46,7 +46,7 @@
       </van-tabs>
     </div>
     <!-- 浏览历史 -->
-    <div class="history" v-else-if="active === 1">
+    <div class="history" v-show="active === 1">
       <div class="content">
         <template v-for="(item, index) in historylist" :key="index">
           <search-item :item-data="item" />

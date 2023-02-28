@@ -142,7 +142,7 @@ const tabClick = (index) => {
 // 页面滚动, 滚动时匹配对应的tabControll的index
 const tabControlRef = ref(null);
 watch(scrollTop, (newValue) => {
-  if (newValue === currentDistance) {
+  if (currentDistance === Math.floor(newValue)) {
     isClick = false;
   }
   if (isClick) return;
