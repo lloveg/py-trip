@@ -36,10 +36,12 @@
     />
 
     <!-- 价格/人数选择 -->
-    <price-counter /> 
+    <price-counter />
 
     <!-- 关键字 -->
-    <div class="section keyword bottom-gray-line">关键字/位置/民宿名</div>
+    <div class="section keyword bottom-gray-line" @click="searchBtnClick">
+      关键字/位置/民宿名
+    </div>
 
     <!-- 热门建议 -->
     <div class="section hot-suggests">
@@ -50,7 +52,7 @@
             color: item.tagText.color,
             background: item.tagText.background.color,
           }"
-          @click="searchBtnClick(item)"
+          @click="hotelBtnClick(item)"
         >
           {{ item.tagText.text }}
         </div>
@@ -59,7 +61,7 @@
 
     <!-- 搜索 -->
     <div class="section search-btn">
-      <div class="btn" @click="searchBtnClick">开始搜索</div>
+      <div class="btn" @click="hotelBtnClick">开始搜索</div>
     </div>
 
     <div class="desc">名宿预定服务由追梦旅途网提供</div>
@@ -72,7 +74,7 @@ import { useRouter } from "vue-router";
 import useCityStore from "@/stores/modules/city";
 import { storeToRefs } from "pinia";
 import { formatMonthDay, getDiffDays } from "@/utils/format_date";
-import PriceCounter from "@/components/price-counter/price-counter.vue"
+import PriceCounter from "@/components/price-counter/price-counter.vue";
 import useMainStore from "@/stores/modules/main";
 
 const router = useRouter();
@@ -119,13 +121,14 @@ const { currentCity } = storeToRefs(cityStore);
 // const endDate = ref(formatMonthDay(newDate));
 // const stayCount = ref(getDiffDays(nowDate, newDate));
 
-const mainStore = useMainStore()
-const { startDate, endDate } = storeToRefs(mainStore);
+const mainStore = useMainStore();
+const { startDate, endDate, position } = storeToRefs(mainStore);
 // console.log(startDate.value, endDate.value)
+position.value = currentCity.value
 
 const startDateStr = computed(() => formatMonthDay(startDate.value));
 const endDateStr = computed(() => formatMonthDay(endDate.value));
-const stayCount = ref(getDiffDays(startDate.value, endDate.value))
+const stayCount = ref(getDiffDays(startDate.value, endDate.value));
 
 const showCalendar = ref(false);
 const onConfirm = (value) => {
@@ -142,11 +145,16 @@ const onConfirm = (value) => {
   showCalendar.value = false;
 };
 
+// 关键字按钮点击
+const searchBtnClick = () => {
+  router.push("/search");
+};
+
 // 搜索按钮点击
-const searchBtnClick = (item) => {
+const hotelBtnClick = (item) => {
   const keyword = item?.tagText?.text ? item.tagText.text : "默认搜索";
   router.push({
-    path: "/search",
+    path: "/hotel",
     query: {
       startDate: startDate.value,
       endDate: endDate.value,

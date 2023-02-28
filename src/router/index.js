@@ -41,6 +41,13 @@ const router = createRouter({
       }
     },
     {
+      path: '/hotel',
+      component: () => import('@/views/hotel/hotel.vue'),
+      meta: {
+        hideTabBar: true
+      }
+    },
+    {
       path: '/detail/:id',
       component: () => import('@/views/detail/detail.vue'),
     },

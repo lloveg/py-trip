@@ -7,8 +7,9 @@
     <home-search-box :hot-suggests="hotSuggests" />
     <home-categories />
 
-    <div class="search-bar" v-if="isShowSearchBar">
-      <search-bar />
+    <div class="search" v-if="isShowSearchBar">
+      <search-bar :search-icon="true" height="45px" />
+      <!-- :start-date="startDate" :end-date="endDate"  -->
     </div>
 
     <home-content />
@@ -28,6 +29,7 @@ import { watch, ref, onActivated } from "vue";
 import { computed } from "@vue/reactivity";
 import { storeToRefs } from "pinia";
 import useHomeStore from "@/stores/modules/home";
+import useMainStore from "@/stores/modules/main";
 
 import HomeNavBar from "@/views/home/components/home-nav-bar.vue";
 import HomeSearchBox from "@/views/home/components/home-search-box.vue";
@@ -36,6 +38,7 @@ import HomeContent from "@/views/home/components/home-content.vue";
 import SearchBar from "@/components/search-bar/search-bar.vue";
 
 import useScroll from "@/hook/useScroll";
+
 
 // 发送网络请求
 const homeStore = useHomeStore();
@@ -62,6 +65,12 @@ watch(isReachBootom, (newValue) => {
   }
 });
 
+// 获取开始结束时间
+const mainStore = useMainStore();
+// const { startDate, endDate } = storeToRefs(mainStore)
+// const startDate = "07.12"
+// const endDate = "07.13"
+
 // 搜索框显示的控制
 // 定义的可响应式数据, 依赖另外一个可响应式的数据, 那么可以使用计算函数(computed)
 const isShowSearchBar = computed(() => {
@@ -83,7 +92,7 @@ onActivated(() => {
   box-sizing: border-box;
   padding-bottom: 60px;
 
-  .search-bar {
+  .search {
     position: fixed;
     z-index: 9;
     top: 0;

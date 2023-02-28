@@ -11,6 +11,15 @@
   --van-search-left-icon-color: var(--primary-color) !important;
 
   --van-index-anchor-sticky-background: #f1f3f6 !important;
+
+    /* sidebar */
+    --van-sidebar-width: 112px !important;
+    --van-sidebar-font-size: 14px !important;
+    --van-sidebar-text-color: #333 !important;
+    --van-sidebar-selected-text-color: var(--primary-color) !important;
+    --van-sidebar-background-color: #f8f8f8 !important;
+    --van-sidebar-selected-border-width: 4px !important;
+    --van-sidebar-selected-border-height: 4px !important;
 }
 
 body {
