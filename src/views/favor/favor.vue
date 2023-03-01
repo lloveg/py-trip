@@ -95,7 +95,7 @@ const handleBtnClick = () => {
   background-color: #f7f8fb;
 
   :deep(.van-tab--card) {
-    width: 72px;
+    width: 72px !important;
   }
 
   :deep(.van-tabs__nav--card) {

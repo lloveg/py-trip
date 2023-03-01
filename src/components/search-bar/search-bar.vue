@@ -35,9 +35,10 @@
 
 <script setup>
 import { computed } from "vue";
-import useMainStore from '@/stores/modules/main';
-import { storeToRefs } from 'pinia';
-import { formatMonthDay } from '@/utils/format_date'; 
+import useMainStore from "@/stores/modules/main";
+import { storeToRefs } from "pinia";
+import { formatMonthDay } from "@/utils/format_date";
+
 
 const props = defineProps({
   title: {
@@ -68,8 +69,8 @@ const props = defineProps({
 
 const mainStore = useMainStore();
 const { startDate, endDate } = storeToRefs(mainStore);
-const startDateStr = computed(() => formatMonthDay(startDate.value, "MM.DD"))
-const endDateStr = computed(() => formatMonthDay(endDate.value, "MM.DD"))
+const startDateStr = computed(() => formatMonthDay(startDate.value, "MM.DD"));
+const endDateStr = computed(() => formatMonthDay(endDate.value, "MM.DD"));
 
 // const formatDate = (date) => {
 //   return date.split("-").join(".");

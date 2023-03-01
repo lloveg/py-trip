@@ -65,6 +65,17 @@
     </div>
 
     <div class="desc">名宿预定服务由追梦旅途网提供</div>
+
+    <!-- 点击搜索显示搜索面板 -->
+    <search
+      v-if="showSearchPanel"
+      :searchPanelDatas="guessulike.groups"
+      @cancel="handleCancel"
+      @search="handleSearch"
+      @tag-click="handleTagClick"
+      @result-item-click="handleResultItemClick"
+    >
+    </search>
   </div>
 </template>
 
@@ -74,8 +85,11 @@ import { useRouter } from "vue-router";
 import useCityStore from "@/stores/modules/city";
 import { storeToRefs } from "pinia";
 import { formatMonthDay, getDiffDays } from "@/utils/format_date";
+import { getGuessulike } from "@/services";
+
 import PriceCounter from "@/components/price-counter/price-counter.vue";
 import useMainStore from "@/stores/modules/main";
+import Search from "@/views/search/search.vue";
 
 const router = useRouter();
 
@@ -112,6 +126,12 @@ const positionClick = () => {
 const cityStore = useCityStore();
 const { currentCity } = storeToRefs(cityStore);
 
+// 获取搜索列表
+const guessulike = ref([]);
+getGuessulike().then((res) => {
+  guessulike.value = res.data;
+});
+
 // 日期范围的处理
 // const nowDate = new Date();
 // const newDate = new Date();
@@ -124,7 +144,7 @@ const { currentCity } = storeToRefs(cityStore);
 const mainStore = useMainStore();
 const { startDate, endDate, position } = storeToRefs(mainStore);
 // console.log(startDate.value, endDate.value)
-position.value = currentCity.value
+position.value = currentCity.value;
 
 const startDateStr = computed(() => formatMonthDay(startDate.value));
 const endDateStr = computed(() => formatMonthDay(endDate.value));
@@ -145,9 +165,30 @@ const onConfirm = (value) => {
   showCalendar.value = false;
 };
 
+const showSearchPanel = ref(false);
 // 关键字按钮点击
 const searchBtnClick = () => {
-  router.push("/search");
+  showSearchPanel.value = true;
+};
+
+const handleCancel = () => {
+  showSearchPanel.value = false;
+};
+const handleSearch = () => {};
+const handleTagClick = (value) => {
+  showSearchPanel.value = false;
+  if (value.keyWord) {
+    showCancelIcon.value = true;
+    keyWord.value = value.keyWord;
+  } else {
+    showCancelIcon.value = false;
+  }
+};
+
+const handleResultItemClick = (item) => {
+  handleTagClick({
+    keyWord: item.name,
+  });
 };
 
 // 搜索按钮点击
