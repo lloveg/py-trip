@@ -85,12 +85,6 @@ const handleCancelClick = () => {
 </script>
 
 <style scoped lang="less">
-// 重写Vant 样式
-:global(.van-nav-bar .van-nav-bar__content .van-nav-bar__title) {
-  width: 73%;
-  max-width: 100%;
-}
-
 .search-bar {
   display: flex;
   flex-direction: row;
