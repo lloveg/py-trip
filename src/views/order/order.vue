@@ -41,10 +41,9 @@ getOrderList().then((res) => {
 });
 
 watch(currentOrder, (newValue) => {
-  console.log(newValue);
   if (newValue !== undefined) {
     getOrderList(orderTitleType[newValue]).then((res) => {
-      console.log(res.data.data.orders);
+      // console.log(res.data.data.orders);
       orderlist.value = res.data.data.orders || [];
     });
   }
