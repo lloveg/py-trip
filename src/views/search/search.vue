@@ -77,6 +77,7 @@ searchStore.initSearchHistory();
 watch(
   value,
   debounce((newValue, oldValue) => {
+    console.log(newValue);
     if (!newValue.trim()) {
       return;
     }
@@ -96,11 +97,12 @@ watch(
       .finally(() => {
         // loadingStore.changeLoading(false); // 隐藏加载
       });
-  })
+  }, 300)
 );
 
 const emit = defineEmits(["cancel", "search", "tagClick", "resultItemClick"]);
 const onSearch = (val) => {
+  console.log("触发了");
   emit("search", val);
 };
 const onCancel = () => {
